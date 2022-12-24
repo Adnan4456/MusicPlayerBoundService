@@ -4,13 +4,11 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
@@ -67,7 +65,9 @@ class MainActivity : AppCompatActivity() {
             else{
 //                to play song on bckground we also run service as started service
                 val i = Intent(this , MusicPlayerService::class.java)
+                i.action = "start"
                 startService(i)
+
                 mMusicPlayerService.play()
             }
         }
@@ -78,6 +78,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         Log.d("service", "OnStart methos class is called")
         val i = Intent(this , MusicPlayerService::class.java)
+
         bindService(i ,mServiceConnection , Context.BIND_AUTO_CREATE)
     }
 
